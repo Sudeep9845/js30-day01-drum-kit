@@ -4,11 +4,9 @@ const dark = document.querySelector("#dark");
 const guitar = document.querySelector("#guitar");
 
 //importing audio files
-const beatAudio = new Audio("../audio/beat-drums-4_4_120bpm-9sek-275095.mp3");
-const darkAudio = new Audio(
-	"../audio/dark-trap-loop-145bpm-e-minor-270343.mp3"
-);
-const guitarAudio = new Audio("../audio/relaxing-guitar-257871.mp3");
+const beatAudio = new Audio("audio/beat-drums-4_4_120bpm-9sek-275095.mp3");
+const darkAudio = new Audio("audio/dark-trap-loop-145bpm-e-minor-270343.mp3");
+const guitarAudio = new Audio("audio/relaxing-guitar-257871.mp3");
 
 const playBeat = () => {
 	darkAudio.pause();
