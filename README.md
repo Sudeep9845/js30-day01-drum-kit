@@ -1,6 +1,8 @@
 # js30-day01-drum-kit
 
-# 🎵 Mini Audio Loop Player
+[Project Link](https://sudeep9845.github.io/js30-day01-drum-kit/)
+
+## 🎵 Mini Audio Loop Player
 
 This is a simple yet interactive web-based **audio loop player** that allows users to play, switch, and pause different background audio loops using both **clicks and keyboard keys** . It’s designed to help learn how to control media elements using JavaScript DOM manipulation and event handling.
 
