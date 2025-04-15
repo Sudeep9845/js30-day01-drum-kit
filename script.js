@@ -1,76 +1,48 @@
-const main = document.querySelector("#main");
-const beat = document.querySelector("#beat");
-const dark = document.querySelector("#dark");
-const guitar = document.querySelector("#guitar");
+const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+const key = document.querySelector(`.audio-box[data-key="${e.keyCode}"]`);
+const allKeys = document.querySelectorAll(".audio-box");
+const allAudio = document.querySelectorAll("audio");
 
-//importing audio files
-const beatAudio = new Audio("audio/beat-drums-4_4_120bpm-9sek-275095.mp3");
-const darkAudio = new Audio("audio/dark-trap-loop-145bpm-e-minor-270343.mp3");
-const guitarAudio = new Audio("audio/relaxing-guitar-257871.mp3");
-
-const playBeat = () => {
-	darkAudio.pause();
-	guitarAudio.pause();
-	dark.classList.remove("playing");
-	guitar.classList.remove("playing");
-	beatAudio.currentTime = 0;
-	beatAudio.play();
-	beat.classList.add("playing");
-};
-const playDark = () => {
-	beatAudio.pause();
-	guitarAudio.pause();
-	beat.classList.remove("playing");
-	guitar.classList.remove("playing");
-	darkAudio.currentTime = 0;
-	darkAudio.play();
-	dark.classList.add("playing");
-};
-const playGuitar = () => {
-	beatAudio.pause();
-	darkAudio.pause();
-	beat.classList.remove("playing");
-	dark.classList.remove("playing");
-	guitarAudio.currentTime = 0;
-	guitarAudio.play();
-	guitar.classList.add("playing");
-};
-const pauseAll = () => {
-	beatAudio.pause();
-	darkAudio.pause();
-	guitarAudio.pause();
-	beat.classList.remove("playing");
-	dark.classList.remove("playing");
-	guitar.classList.remove("playing");
-};
-//adding click event listeners to the buttons
-beat.addEventListener("click", () => {
-	playBeat();
+// Add event listener to all keys
+window.addEventListener("keydown", (e) => {
+	playSound(e);
 });
-dark.addEventListener("click", () => {
-	playDark();
-});
-guitar.addEventListener("click", () => {
-	playGuitar();
+// Add event listener to all mouse clicks
+allKeys.forEach((key) => {
+	key.addEventListener("click", () => {
+		playSound();
+	});
 });
 
-//adding keydown event listeners to the buttons
-document.addEventListener("keydown", (e) => {
-	if (e.key === "b") playBeat();
-	if (e.key === "d") playDark();
-	if (e.key === "g") playGuitar();
-	if (e.key === " ") pauseAll();
-});
-
-document.addEventListener("click", (event) => {
-	const clickedElement = event.target;
-
-	// If the clicked element is NOT one of the audio buttons
-	if (
-		clickedElement !== beat &&
-		clickedElement !== dark &&
-		clickedElement !== guitar
-	) {
+// Play sound function
+const playSound = (e) => {
+	if (e.keyCode === "32") {
 		pauseAll();
+		return;
 	}
-});
+
+	if (!audio) return; // stop the function if there's no audio
+
+	pauseAll();
+	audio.currentTime = 0; // rewind to the start
+	audio.play(); // play the audio
+	key.classList.add("playing");
+};
+// Pause all sounds and remove the playing class
+const pauseAll = () => {
+	allAudio.forEach((audio) => {
+		audio.pause(); // pause all audio
+		audio.currentTime = 0; // rewind to the start
+	});
+
+	allKeys.forEach((k) => k.classList.remove("playing"));
+};
+// Remove the playing class after transition ends
+const removeTransition = (e) => {
+	if (e.popertyName !== "transform") return;
+	this.classList.remove("playing");
+};
+// Add transition end event listener to all keys
+allKeys.forEach((key) =>
+	key.addEventListener("transitionend", removeTransition)
+);
