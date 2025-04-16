@@ -6,12 +6,16 @@ window.addEventListener("keydown", (e) => {
 });
 
 allKeys.forEach((key) => {
-	key.addEventListener("click", () => {
+	key.addEventListener("click", (e) => {
 		const keyCode = key.getAttribute("data-key");
 		playSound(Number(keyCode)); // convert to number
 	});
 });
-
+document.addEventListener("click", (e) => {
+	if (!e.target.closest(".audio-box")) {
+		pauseAll();
+	}
+});
 const playSound = (keyCode) => {
 	if (keyCode === 32) {
 		pauseAll();
@@ -39,11 +43,18 @@ const pauseAll = () => {
 	allKeys.forEach((k) => k.classList.remove("playing"));
 };
 
-const removeTransition = function (e) {
-	if (e.propertyName !== "transform") return;
-	this.classList.remove("playing");
-};
+// const removeTransition = function (e) {
+// 	if (e.propertyName !== "transform") return;
+// 	this.classList.remove("playing");
+// };
 
-allKeys.forEach((key) =>
-	key.addEventListener("transitionend", removeTransition)
-);
+// allKeys.forEach((key) =>
+// 	key.addEventListener("transitionend", removeTransition)
+// );
+allAudio.forEach((audio) => {
+	audio.addEventListener("ended", () => {
+		const keyCode = audio.target.getAttribute("data-key");
+		const key = document.querySelector(`audio-box[data-key="${keyCode}]`);
+		key.classList.remove("playing");
+	});
+});

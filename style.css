@@ -70,4 +70,6 @@ body::-webkit-scrollbar {
 
 #container .playing {
 	background-color: rgb(120, 255, 120);
+	box-shadow: 0 0 10px rgb(120, 255, 120);
+	transform: scale(1.05);
 }
