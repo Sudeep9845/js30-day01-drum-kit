@@ -42,7 +42,7 @@ const pauseAll = () => {
 
 	allKeys.forEach((k) => k.classList.remove("playing"));
 };
-
+//transitioned effect
 // const removeTransition = function (e) {
 // 	if (e.propertyName !== "transform") return;
 // 	this.classList.remove("playing");
@@ -51,6 +51,8 @@ const pauseAll = () => {
 // allKeys.forEach((key) =>
 // 	key.addEventListener("transitionend", removeTransition)
 // );
+
+//ended effect
 allAudio.forEach((audio) => {
 	audio.addEventListener("ended", () => {
 		const keyCode = audio.target.getAttribute("data-key");
